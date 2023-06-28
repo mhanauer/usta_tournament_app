@@ -5,14 +5,8 @@
       "source": [
         "%load_ext lab_black"
       ],
-      "outputs": [
-        {
-          "output_type": "stream",
-          "name": "stdout",
-          "text": "The lab_black extension is already loaded. To reload it, use:\n  %reload_ext lab_black\n"
-        }
-      ],
-      "execution_count": 35,
+      "outputs": [],
+      "execution_count": 4,
       "metadata": {}
     },
     {
@@ -36,6 +30,7 @@
         "from azureml.core import Workspace\n",
         "import os\n",
         "from pyprojroot import here\n",
+        "from random import shuffle\n",
         "\n",
         "path_data = here(\"./data\")\n",
         "os.chdir(path_data)\n",
@@ -43,7 +38,7 @@
         "data_tournament_app = pd.read_excel(\"data_tournament_app.xlsx\")"
       ],
       "outputs": [],
-      "execution_count": 36,
+      "execution_count": 5,
       "metadata": {
         "jupyter": {
           "source_hidden": false,
@@ -55,7 +50,7 @@
           }
         },
         "gather": {
-          "logged": 1687976185739
+          "logged": 1687985296089
         }
       }
     },
@@ -67,7 +62,7 @@
       "outputs": [
         {
           "output_type": "execute_result",
-          "execution_count": 38,
+          "execution_count": 6,
           "data": {
             "text/plain": "   player name  points\n0        EEB 7     120\n1       EEB 17     110\n2        EEB 2     110\n3       EEB 18     105\n4        EEB 1     100\n5       EEB 16     100\n6       EEB 20      98\n7       EEB 19      95\n8        EEB 3      90\n9        EEB 4      75\n10       EEB 9      70\n11       EEB 5      60\n12      EEB 11      60\n13      EEB 10      55\n14      EEB 15      50\n15      EEB 12      40\n16      EEB 13      30\n17      EEB 14      20\n18       EEB 8       0\n19       EEB 6       0",
             "text/html": "<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>player name</th>\n      <th>points</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>0</th>\n      <td>EEB 7</td>\n      <td>120</td>\n    </tr>\n    <tr>\n      <th>1</th>\n      <td>EEB 17</td>\n      <td>110</td>\n    </tr>\n    <tr>\n      <th>2</th>\n      <td>EEB 2</td>\n      <td>110</td>\n    </tr>\n    <tr>\n      <th>3</th>\n      <td>EEB 18</td>\n      <td>105</td>\n    </tr>\n    <tr>\n      <th>4</th>\n      <td>EEB 1</td>\n      <td>100</td>\n    </tr>\n    <tr>\n      <th>5</th>\n      <td>EEB 16</td>\n      <td>100</td>\n    </tr>\n    <tr>\n      <th>6</th>\n      <td>EEB 20</td>\n      <td>98</td>\n    </tr>\n    <tr>\n      <th>7</th>\n      <td>EEB 19</td>\n      <td>95</td>\n    </tr>\n    <tr>\n      <th>8</th>\n      <td>EEB 3</td>\n      <td>90</td>\n    </tr>\n    <tr>\n      <th>9</th>\n      <td>EEB 4</td>\n      <td>75</td>\n    </tr>\n    <tr>\n      <th>10</th>\n      <td>EEB 9</td>\n      <td>70</td>\n    </tr>\n    <tr>\n      <th>11</th>\n      <td>EEB 5</td>\n      <td>60</td>\n    </tr>\n    <tr>\n      <th>12</th>\n      <td>EEB 11</td>\n      <td>60</td>\n    </tr>\n    <tr>\n      <th>13</th>\n      <td>EEB 10</td>\n      <td>55</td>\n    </tr>\n    <tr>\n      <th>14</th>\n      <td>EEB 15</td>\n      <td>50</td>\n    </tr>\n    <tr>\n      <th>15</th>\n      <td>EEB 12</td>\n      <td>40</td>\n    </tr>\n    <tr>\n      <th>16</th>\n      <td>EEB 13</td>\n      <td>30</td>\n    </tr>\n    <tr>\n      <th>17</th>\n      <td>EEB 14</td>\n      <td>20</td>\n    </tr>\n    <tr>\n      <th>18</th>\n      <td>EEB 8</td>\n      <td>0</td>\n    </tr>\n    <tr>\n      <th>19</th>\n      <td>EEB 6</td>\n      <td>0</td>\n    </tr>\n  </tbody>\n</table>\n</div>"
@@ -75,7 +70,7 @@
           "metadata": {}
         }
       ],
-      "execution_count": 38,
+      "execution_count": 6,
       "metadata": {
         "jupyter": {
           "source_hidden": false,
@@ -87,27 +82,18 @@
           }
         },
         "gather": {
-          "logged": 1687976199137
+          "logged": 1687985297637
         }
       }
     },
     {
       "cell_type": "code",
       "source": [
-        "import pandas as pd\n",
-        "import numpy as np\n",
-        "from random import shuffle\n",
-        "\n",
-        "\n",
         "def assign_players(df, n_seeds):\n",
-        "    # Sort players by points\n",
         "    df = df.sort_values(by=\"points\", ascending=False).reset_index(drop=True)\n",
-        "\n",
-        "    # Mark the top n_seeds as seeds and assign seed number\n",
         "    df[\"seed\"] = np.nan\n",
         "    df.loc[: n_seeds - 1, \"seed\"] = range(1, n_seeds + 1)\n",
         "\n",
-        "    # If the number of total players is odd, the highest seed(s) get a bye\n",
         "    byes = []\n",
         "    if df.shape[0] % 2 != 0:\n",
         "        for seed in range(1, n_seeds + 1):\n",
@@ -118,20 +104,15 @@
         "                    \"Seed\": seed,\n",
         "                }\n",
         "            )\n",
-        "            df = df[df[\"seed\"] != seed]  # remove the player who got a bye from the df\n",
-        "            if (\n",
-        "                df.shape[0] % 2 == 0\n",
-        "            ):  # stop giving byes when the total number of players is even\n",
+        "            df = df[df[\"seed\"] != seed]\n",
+        "            if df.shape[0] % 2 == 0:\n",
         "                break\n",
         "\n",
-        "    # Split dataframe into seeds and non-seeds\n",
         "    seeds_df = df[df[\"seed\"].notna()]\n",
         "    non_seeds_df = df[df[\"seed\"].isna()]\n",
         "\n",
-        "    # Create empty list to hold matchups\n",
         "    seed_matchups = []\n",
         "    for index, seed in seeds_df.iterrows():\n",
-        "        # If there are still non-seeds left, pop a player from non_seeds_df and match them with the seed\n",
         "        if len(non_seeds_df) > 0:\n",
         "            matchup = non_seeds_df.iloc[0]\n",
         "            non_seeds_df = non_seeds_df.iloc[1:]\n",
@@ -143,7 +124,6 @@
         "                }\n",
         "            )\n",
         "\n",
-        "    # Match up remaining non-seeds randomly\n",
         "    non_seeds = list(non_seeds_df[\"player name\"])\n",
         "    shuffle(non_seeds)\n",
         "    non_seed_matchups = [\n",
@@ -151,13 +131,15 @@
         "        for i in range(0, len(non_seeds), 2)\n",
         "    ]\n",
         "\n",
-        "    # Combine byes, seed and non-seed matchups in bracket-style layout\n",
         "    byes_df = pd.DataFrame(byes)\n",
         "    seed_matchups_df = pd.DataFrame(seed_matchups)\n",
         "    non_seed_matchups_df = pd.DataFrame(non_seed_matchups)\n",
-        "    matchups_df = pd.DataFrame()\n",
         "\n",
-        "    if n_seeds >= 2:\n",
+        "    if n_seeds == 1:\n",
+        "        matchups_df = pd.concat(\n",
+        "            [byes_df, seed_matchups_df, non_seed_matchups_df]\n",
+        "        ).reset_index(drop=True)\n",
+        "    elif n_seeds >= 2:\n",
         "        first_seed = (\n",
         "            byes_df[byes_df[\"Seed\"] == 1]\n",
         "            if not byes_df.empty and 1 in byes_df[\"Seed\"].values\n",
@@ -194,7 +176,7 @@
         "    return matchups_df"
       ],
       "outputs": [],
-      "execution_count": 44,
+      "execution_count": 10,
       "metadata": {
         "jupyter": {
           "source_hidden": false,
@@ -206,27 +188,27 @@
           }
         },
         "gather": {
-          "logged": 1687976517146
+          "logged": 1687985502930
         }
       }
     },
     {
       "cell_type": "code",
       "source": [
-        "assign_players(df=data_tournament_app.head(13), n_seeds=2)"
+        "assign_players(df=data_tournament_app.head(13), n_seeds=1)"
       ],
       "outputs": [
         {
           "output_type": "execute_result",
-          "execution_count": 47,
+          "execution_count": 9,
           "data": {
-            "text/plain": "  Player 1 Player 2  Seed\n0    EEB 7     None   1.0\n1    EEB 4    EEB 8   NaN\n2   EEB 11   EEB 10   NaN\n3   EEB 13    EEB 3   NaN\n4   EEB 12    EEB 5   NaN\n5    EEB 9    EEB 6   NaN\n6    EEB 2    EEB 1   2.0",
-            "text/html": "<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>Player 1</th>\n      <th>Player 2</th>\n      <th>Seed</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>0</th>\n      <td>EEB 7</td>\n      <td>None</td>\n      <td>1.0</td>\n    </tr>\n    <tr>\n      <th>1</th>\n      <td>EEB 4</td>\n      <td>EEB 8</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>2</th>\n      <td>EEB 11</td>\n      <td>EEB 10</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>3</th>\n      <td>EEB 13</td>\n      <td>EEB 3</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>4</th>\n      <td>EEB 12</td>\n      <td>EEB 5</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>5</th>\n      <td>EEB 9</td>\n      <td>EEB 6</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>6</th>\n      <td>EEB 2</td>\n      <td>EEB 1</td>\n      <td>2.0</td>\n    </tr>\n  </tbody>\n</table>\n</div>"
+            "text/plain": "  Player 1 Player 2  Seed\n0    EEB 7     None   1.0\n1   EEB 13    EEB 8   NaN\n2    EEB 5    EEB 3   NaN\n3    EEB 2    EEB 1   NaN\n4   EEB 12   EEB 11   NaN\n5   EEB 10    EEB 4   NaN\n6    EEB 9    EEB 6   NaN",
+            "text/html": "<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>Player 1</th>\n      <th>Player 2</th>\n      <th>Seed</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>0</th>\n      <td>EEB 7</td>\n      <td>None</td>\n      <td>1.0</td>\n    </tr>\n    <tr>\n      <th>1</th>\n      <td>EEB 13</td>\n      <td>EEB 8</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>2</th>\n      <td>EEB 5</td>\n      <td>EEB 3</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>3</th>\n      <td>EEB 2</td>\n      <td>EEB 1</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>4</th>\n      <td>EEB 12</td>\n      <td>EEB 11</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>5</th>\n      <td>EEB 10</td>\n      <td>EEB 4</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>6</th>\n      <td>EEB 9</td>\n      <td>EEB 6</td>\n      <td>NaN</td>\n    </tr>\n  </tbody>\n</table>\n</div>"
           },
           "metadata": {}
         }
       ],
-      "execution_count": 47,
+      "execution_count": 9,
       "metadata": {
         "jupyter": {
           "source_hidden": false,
@@ -238,7 +220,7 @@
           }
         },
         "gather": {
-          "logged": 1687976766708
+          "logged": 1687985491405
         }
       }
     }
