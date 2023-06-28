@@ -59,7 +59,7 @@ uploaded_file = st.file_uploader("Upload an Excel file", type=['xlsx'])
 
 if uploaded_file is not None:
     data = pd.read_excel(uploaded_file)
-    n_seeds = st.slider('Number of seeds:', min_value=1, max_value=4)
+    n_seeds = st.selectbox('Number of seeds:', options=[1, 2, 3, 4])
     df = assign_players(data, n_seeds)
     st.dataframe(df)
 else:
