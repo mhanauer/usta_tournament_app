@@ -89,9 +89,7 @@ def assign_players(df, n_seeds):
 
     return matchups_df
 
-st.title('Player Matcher')
-
-st.title('Player Matcher')
+st.title('USTA Demo Tournament Draw Creator: USTA-TDC')
 
 st.markdown("""
 This demo app is designed to help USTA staff create tournament drafts automatically based on tournament points.
