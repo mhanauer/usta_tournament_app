@@ -195,20 +195,20 @@
     {
       "cell_type": "code",
       "source": [
-        "assign_players(df=data_tournament_app, n_seeds=4)"
+        "assign_players(df=data_tournament_app.head(9), n_seeds=2)"
       ],
       "outputs": [
         {
           "output_type": "execute_result",
-          "execution_count": 9,
+          "execution_count": 10,
           "data": {
-            "text/plain": "  Player 1 Player 2  Seed\n0    EEB 7    EEB 1   1.0\n1   EEB 14   EEB 10   NaN\n2    EEB 5    EEB 9   NaN\n3   EEB 12    EEB 3   NaN\n4    EEB 2   EEB 20   3.0\n5   EEB 18   EEB 19   4.0\n6   EEB 13    EEB 8   NaN\n7    EEB 6    EEB 4   NaN\n8   EEB 11   EEB 15   NaN\n9   EEB 17   EEB 16   2.0",
-            "text/html": "<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>Player 1</th>\n      <th>Player 2</th>\n      <th>Seed</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>0</th>\n      <td>EEB 7</td>\n      <td>EEB 1</td>\n      <td>1.0</td>\n    </tr>\n    <tr>\n      <th>1</th>\n      <td>EEB 14</td>\n      <td>EEB 10</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>2</th>\n      <td>EEB 5</td>\n      <td>EEB 9</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>3</th>\n      <td>EEB 12</td>\n      <td>EEB 3</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>4</th>\n      <td>EEB 2</td>\n      <td>EEB 20</td>\n      <td>3.0</td>\n    </tr>\n    <tr>\n      <th>5</th>\n      <td>EEB 18</td>\n      <td>EEB 19</td>\n      <td>4.0</td>\n    </tr>\n    <tr>\n      <th>6</th>\n      <td>EEB 13</td>\n      <td>EEB 8</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>7</th>\n      <td>EEB 6</td>\n      <td>EEB 4</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>8</th>\n      <td>EEB 11</td>\n      <td>EEB 15</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>9</th>\n      <td>EEB 17</td>\n      <td>EEB 16</td>\n      <td>2.0</td>\n    </tr>\n  </tbody>\n</table>\n</div>"
+            "text/plain": "  Player 1 Player 2  Seed\n0    EEB 7     None   1.0\n1    EEB 9    EEB 3   NaN\n2    EEB 5    EEB 6   NaN\n3    EEB 4    EEB 8   NaN\n4    EEB 2    EEB 1   2.0",
+            "text/html": "<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>Player 1</th>\n      <th>Player 2</th>\n      <th>Seed</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>0</th>\n      <td>EEB 7</td>\n      <td>None</td>\n      <td>1.0</td>\n    </tr>\n    <tr>\n      <th>1</th>\n      <td>EEB 9</td>\n      <td>EEB 3</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>2</th>\n      <td>EEB 5</td>\n      <td>EEB 6</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>3</th>\n      <td>EEB 4</td>\n      <td>EEB 8</td>\n      <td>NaN</td>\n    </tr>\n    <tr>\n      <th>4</th>\n      <td>EEB 2</td>\n      <td>EEB 1</td>\n      <td>2.0</td>\n    </tr>\n  </tbody>\n</table>\n</div>"
           },
           "metadata": {}
         }
       ],
-      "execution_count": 9,
+      "execution_count": 10,
       "metadata": {
         "jupyter": {
           "source_hidden": false,
@@ -220,7 +220,7 @@
           }
         },
         "gather": {
-          "logged": 1688035561541
+          "logged": 1688036700457
         }
       }
     }
