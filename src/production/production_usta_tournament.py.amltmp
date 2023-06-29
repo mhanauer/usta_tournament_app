@@ -99,4 +99,4 @@ if uploaded_file is not None:
     df = assign_players(data, n_seeds)
     st.dataframe(df)
 else:
-    st.write("Please upload a file with two columns player name and points")
+    st.write("")
