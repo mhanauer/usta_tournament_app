@@ -91,7 +91,7 @@ def assign_players(df, n_seeds):
 
 st.title('Player Matcher')
 
-uploaded_file = st.file_uploader("Upload an Excel file", type=['xlsx'])
+uploaded_file = st.file_uploader("Please upload a file with two columns player name and points", type=['xlsx'])
 
 if uploaded_file is not None:
     data = pd.read_excel(uploaded_file)
