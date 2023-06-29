@@ -92,18 +92,20 @@ def assign_players(df, n_seeds):
 st.title('Player Matcher')
 
 uploaded_file = st.file_uploader("""This demo app is designed to help USTA staff create tournament drafts automatically based on tournament points.  
+
 Once you upload the file, you can select 1 to 4 seeds.  
 
-Player 1: The first player in the match-up (think of this as the player on top in the bracket)
+**Player 1**: The first player in the match-up (think of this as the player on top in the bracket)
 
-Player 2: The first player in the match-up (think of this as the player on top in the bracket)
+**Player 2**: The first player in the match-up (think of this as the player on top in the bracket)
 
-Seed: This provides the player’s seed.  If the player does not have a seed None is inserted.  The player listed in Player 1 is the seeded player.
+**Seed**: This provides the player’s seed. If the player does not have a seed None is inserted. The player listed in Player 1 is the seeded player.
 
 Additionally, if Player 2 is none then Player 1 gets a bye.
 
 Please upload an Excel file with the two columns player name and points.  
 """, type=['xlsx'])
+
 
 
 if uploaded_file is not None:
